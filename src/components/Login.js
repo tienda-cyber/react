@@ -1,15 +1,25 @@
 import { useState } from 'react';
+import { iniciarSesion } from '../authservice'; // Asegúrate de tener este archivo creado
 
 const Login = ({ onLogin }) => {
   const [usuario, setUsuario] = useState('');
   const [clave, setClave] = useState('');
 
-  const manejarEnvio = (e) => {
+  const manejarEnvio = async (e) => {
     e.preventDefault();
+
+    // Verificación local (la que ya tienes)
     if (usuario === 'admin' && clave === '1234') {
       onLogin(true);
-    } else {
-      alert('Credenciales incorrectas');
+      return;
+    }
+
+    // Verificación con Firebase
+    try {
+      await iniciarSesion(usuario, clave);
+      onLogin(true);
+    } catch (error) {
+      alert('Credenciales incorrectas o error de Firebase: ' + error.message);
     }
   };
 

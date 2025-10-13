@@ -9,6 +9,7 @@ const ListadoTemas = () => (
       <p>{tema.descripcion}</p>
     </div>
   ))}
+  <button onClick={volver} style={{ marginTop: '20px' }}>Volver al Dashboard</button>
 </div>
 );
 

@@ -7,12 +7,16 @@ import ListadoTemas from './components/ListadoTemas';
 import { headerContent, footerContent } from './contenido';
 import './App.css';
 
+
 function App() {
   const [autenticado, setAutenticado] = useState(false);
   const [showListado, setShowListado] = useState(false);
 
   const cerrarSesion = () => {
     setAutenticado(false);
+    setShowListado(false);
+  };
+  const volverAlDashboard = () => {
     setShowListado(false);
   };
 
@@ -23,7 +27,7 @@ function App() {
       {!autenticado ? (
         <Login onLogin={setAutenticado} />
       ) : showListado ? (
-        <ListadoTemas />
+        <ListadoTemas volver={volverAlDashboard} />
       ) : (
         <Dashboard 
           mostrarListado={() => setShowListado(true)} 
