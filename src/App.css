@@ -13,13 +13,15 @@ body {
 
 /* Contenido Principal para evitar solapamiento con el Footer */
 .main-content {
-    padding-bottom: 60px; /* Espacio para el footer fijo */
+    padding-bottom: 60px;
+    min-height: calc(100vh - 100px);
 }
 
 header {
     background-color: #007bff;
     color: white;
     padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 footer {
@@ -29,6 +31,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 10;
 }
 
 form {
@@ -49,53 +52,34 @@ input {
     border-radius: 4px;
 }
 
-/* ---------------------------------------------------- */
-/* REGLA CORREGIDA: HACE TODOS LOS BOTONES COMPACTOS EXCEPTO EL DE LOGIN */
-/* Usamos :not() y !important para anular la regla previa que forzaba el 100% de ancho */
-button:not(.btn-ancho-completo) {
+/* REGLA GLOBAL DE BOTONES: COMPACTOS Y CENTRADOS POR DEFECTO */
+.App button:not(.btn-ancho-completo) {
     background-color: #007bff;
     color: white;
     border: none;
     
-    /* TAMAÑO COMPACTO FORZADO */
-    padding: 7px 15px !important; 
-    font-size: 0.95em !important; 
+    padding: 7px 15px;
+    font-size: 0.95em; 
     
-    /* ANCHO Y ALINEACIÓN FORZADA */
-    width: auto !important;          
-    display: block !important;       
-    margin: 10px auto !important;    /* Centra el botón */
+    width: auto; 
+    display: block; /* Necesario para margin auto */
+    margin: 10px auto; /* Centra el botón */
     
     border-radius: 4px;
     cursor: pointer;
 }
 
-/* REGLA DEL BOTÓN DE LOGIN: FUERZA EL 100% DE ANCHO */
-.btn-ancho-completo {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px !important; /* Mantenemos el padding original del formulario */
-    
-    width: 100% !important; 
-    display: block !important;
-    margin: 10px 0 !important; /* Quita el margen auto para pegarlo a los lados */
-    
-    border-radius: 4px;
-    cursor: pointer;
-}
-/* ---------------------------------------------------- */
-
-
-/* Regla de hover que aplica a todos, ya que no toca el tamaño */
-button:hover {
+.App button:hover:not(.btn-ancho-completo) {
     background-color: #0056b3;
 }
 
-h2 {
-    color: #333;
+/* REGLA ESPECÍFICA PARA EL BOTÓN DE LOGIN */
+.btn-ancho-completo {
+    width: 100% !important;
+    margin: 10px 0;
 }
 
+/* Estilos de Tarjetas de Tema */
 .tema-card {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -104,4 +88,63 @@ h2 {
     margin: 10px auto;
     max-width: 400px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Estilo para hacer clicable la tarjeta de tema */
+.tema-card-clickable {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tema-card-clickable:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* ------------------------------------------- */
+/* ESTILOS PARA EL COMPONENTE DETALLE TEMA (NUEVOS) */
+/* ------------------------------------------- */
+
+/* Estilo específico para el contenedor principal de DetalleTema */
+.detalle-card {
+    background-color: white;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* ESTILO PARA LA IMAGEN DEL DETALLE */
+.detalle-tema-imagen {
+    width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+/* Estilos para el bloque de código en DetalleTema (importante para la legibilidad) */
+.codigo-bloque {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-left: 5px solid #007bff;
+    padding: 15px;
+    margin: 15px auto;
+    max-width: 600px;
+    overflow-x: auto;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+    text-align: left; 
+}
+
+/* El <code> dentro de <pre> */
+.codigo-bloque code {
+    white-space: pre-wrap;
+}
+
+h2 {
+    color: #333;
 }
