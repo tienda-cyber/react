@@ -1,57 +1,60 @@
 // src/components/DetalleTema.js
+
 import React from 'react';
 
-const DetalleTema = ({ tema, volverAListado }) => {
-  if (!tema) {
-    return <p>Selecciona un tema para ver los detalles.</p>;
-  }
+const DetalleTema = ({ tema, volver }) => {
+    // Si no hay tema seleccionado, muestra un mensaje (protección)
+    if (!tema) {
+        return (
+            <div className="detalle-card">
+                <h2>Error</h2>
+                <p>No se ha seleccionado ningún tema.</p>
+                <button onClick={volver} className="btn-volver">
+                    ← Volver al Listado
+                </button>
+            </div>
+        );
+    }
 
-  return (
-    <div className="detalle-card">
-      {/* Botón de retroceso */}
-      <button onClick={volverAListado} className="compact-button">
-        &larr; Volver al Listado
-      </button>
+    // Usamos las propiedades del tema, incluyendo el contenido_extendido y codigo_ejemplo
+    const contenidoPrincipal = tema.contenido_extendido || "No hay contenido extendido disponible para este tema.";
+    const codigoEjemplo = tema.codigo_ejemplo || "No hay código de ejemplo disponible.";
 
-      {/* Imagen del Tema */}
-      {tema.imagen_url && (
-        <img 
-          src={tema.imagen_url} 
-          alt={`Imagen representativa de ${tema.titulo}`} 
-          className="detalle-tema-imagen"
-          // Fallback en caso de que la imagen no cargue
-          onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x250/cccccc/000000?text=No+Image" }}
-        />
-      )}
+    return (
+        <div className="detalle-card">
+            <button onClick={volver} className="btn-volver" aria-label="Volver al Listado">
+                ← Volver al Listado
+            </button>
+            
+            {/* SOLUCIÓN AL PROBLEMA DE LA IMAGEN: Renderiza la URL correctamente */}
+            {tema.imagen_url && (
+                <img 
+                    src={tema.imagen_url} 
+                    alt={`Imagen representativa de ${tema.titulo}`} 
+                    className="detalle-imagen"
+                />
+            )}
+            
+            <h2>{tema.titulo}</h2>
+            
+            <p className="detalle-descripcion">{tema.descripcion}</p>
 
-      {/* Título y Descripción */}
-      <h2>{tema.titulo}</h2>
-      <p style={{ fontSize: '1.1em', color: '#555' }}>{tema.descripcion}</p>
+            <hr />
 
-      <hr style={{ margin: '20px 0' }} />
+            <h3>Contenido Extendido</h3>
+            <p>{contenidoPrincipal}</p>
 
-      {/* Contenido Extendido */}
-      <h3>Contenido Extendido</h3>
-      <p>{tema.contenido_extendido}</p>
+            <h3>Código de Ejemplo</h3>
+            <div className="codigo-bloque">
+                <pre><code>{codigoEjemplo}</code></pre>
+            </div>
 
-      {/* Código de Ejemplo */}
-      {tema.codigo_ejemplo && (
-        <>
-          <h3>Código de Ejemplo</h3>
-          <div className="codigo-bloque">
-            {/* Usamos <pre> y <code> para preservar el formato del código */}
-            <pre><code>{tema.codigo_ejemplo}</code></pre>
-          </div>
-        </>
-      )}
-      
-      {/* Botón de retroceso al final */}
-      <button onClick={volverAListado} className="compact-button">
-        &larr; Volver al Listado
-      </button>
-
-    </div>
-  );
+            {/* Botón de navegación al final */}
+            <button onClick={volver} className="btn-ancho-completo" style={{marginTop: '20px'}}>
+                ← Volver al Listado Principal
+            </button>
+        </div>
+    );
 };
 
 export default DetalleTema;

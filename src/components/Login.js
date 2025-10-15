@@ -1,41 +1,40 @@
-// Login.js
-import { useState } from 'react';
+// src/components/Login.js
+import React, { useState } from 'react';
 
 const Login = ({ onLogin }) => {
-  const [usuario, setUsuario] = useState('');
-  const [clave, setClave] = useState('');
+    const [usuario, setUsuario] = useState('');
+    const [contrasena, setContrasena] = useState('');
 
-  const manejarEnvio = (e) => {
-    e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Lógica de validación básica
+        if (usuario === 'admin' && contrasena === '1234') {
+            onLogin(usuario, contrasena);
+        } else {
+            alert('Usuario o contraseña incorrectos.');
+        }
+    };
 
-    // Lógica de Verificación Local (usando tus credenciales 'admin'/'1234')
-    if (usuario === 'admin' && clave === '1234') {
-      onLogin(true); // Autenticación exitosa
-      return;
-    } else {
-      alert('Credenciales incorrectas. Intenta con admin/1234');
-    }
-  };
-
-  return (
-    <form onSubmit={manejarEnvio}>
-      <h2>Iniciar Sesión</h2>
-      <input
-        type="text"
-        placeholder="Usuario"
-        value={usuario}
-        onChange={(e) => setUsuario(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={clave}
-        onChange={(e) => setClave(e.target.value)}
-      />
-      {/* Botón de Login (usa la clase para ancho completo) */}
-      <button type="submit" className="btn-ancho-completo">Entrar</button>
-    </form>
-  );
+    return (
+        <div className="login-container"> {/* Asumiendo que tenías un contenedor */}
+            <h2>Iniciar Sesión</h2>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Usuario"
+                    value={usuario}
+                    onChange={(e) => setUsuario(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Contraseña"
+                    value={contrasena}
+                    onChange={(e) => setContrasena(e.target.value)}
+                />
+                <button type="submit" className="btn-ancho-completo">Entrar</button>
+            </form>
+        </div>
+    );
 };
 
 export default Login;

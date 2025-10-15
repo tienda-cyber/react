@@ -1,8 +1,13 @@
-const Header = ({ contenido }) => (
-  <header>
-    <h1>{contenido.titulo}</h1>
-    <p>{contenido.subtitulo}</p>
-  </header>
-);
+import React from 'react';
+import '../App.css'; // Aseguramos que los estilos están accesibles
+
+const Header = () => {
+    return (
+        <header className="main-header">
+            <h1>Mi Aplicación React</h1>
+            <p>Listado de Temas Educativos</p>
+        </header>
+    );
+};
 
 export default Header;
