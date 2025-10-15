@@ -1,25 +1,19 @@
+// Login.js
 import { useState } from 'react';
-import { iniciarSesion } from '../authservice'; // Asegúrate de tener este archivo creado
 
 const Login = ({ onLogin }) => {
   const [usuario, setUsuario] = useState('');
   const [clave, setClave] = useState('');
 
-  const manejarEnvio = async (e) => {
+  const manejarEnvio = (e) => {
     e.preventDefault();
 
-    // Verificación local (la que ya tienes)
+    // Lógica de Verificación Local (usando tus credenciales 'admin'/'1234')
     if (usuario === 'admin' && clave === '1234') {
-      onLogin(true);
+      onLogin(true); // Autenticación exitosa
       return;
-    }
-
-    // Verificación con Firebase
-    try {
-      await iniciarSesion(usuario, clave);
-      onLogin(true);
-    } catch (error) {
-      alert('Credenciales incorrectas o error de Firebase: ' + error.message);
+    } else {
+      alert('Credenciales incorrectas. Intenta con admin/1234');
     }
   };
 
@@ -38,7 +32,8 @@ const Login = ({ onLogin }) => {
         value={clave}
         onChange={(e) => setClave(e.target.value)}
       />
-      <button type="submit">Entrar</button>
+      {/* Botón de Login (usa la clase para ancho completo) */}
+      <button type="submit" className="btn-ancho-completo">Entrar</button>
     </form>
   );
 };

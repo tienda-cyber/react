@@ -1,84 +1,107 @@
 /* src/App.css */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
 .App {
-  text-align: center;
-  padding: 20px;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Contenido Principal para evitar solapamiento con el Footer */
+.main-content {
+    padding-bottom: 60px; /* Espacio para el footer fijo */
 }
 
 header {
-  background-color: #007bff;
-  color: white;
-  padding: 20px 0;
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
 }
 
 footer {
-  background-color: #333;
-  color: white;
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 form {
-  background-color: white;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 300px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  border-radius: 4px;
-  cursor: pointer;
+/* ---------------------------------------------------- */
+/* REGLA CORREGIDA: HACE TODOS LOS BOTONES COMPACTOS EXCEPTO EL DE LOGIN */
+/* Usamos :not() y !important para anular la regla previa que forzaba el 100% de ancho */
+button:not(.btn-ancho-completo) {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    
+    /* TAMAÑO COMPACTO FORZADO */
+    padding: 7px 15px !important; 
+    font-size: 0.95em !important; 
+    
+    /* ANCHO Y ALINEACIÓN FORZADA */
+    width: auto !important;          
+    display: block !important;       
+    margin: 10px auto !important;    /* Centra el botón */
+    
+    border-radius: 4px;
+    cursor: pointer;
 }
 
+/* REGLA DEL BOTÓN DE LOGIN: FUERZA EL 100% DE ANCHO */
+.btn-ancho-completo {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px !important; /* Mantenemos el padding original del formulario */
+    
+    width: 100% !important; 
+    display: block !important;
+    margin: 10px 0 !important; /* Quita el margen auto para pegarlo a los lados */
+    
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* ---------------------------------------------------- */
+
+
+/* Regla de hover que aplica a todos, ya que no toca el tamaño */
 button:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
 }
 
 h2 {
-  color: #333;
+    color: #333;
 }
 
-/* En App.css */
 .tema-card {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 10px auto;
-  max-width: 400px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 400px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.tema-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 10px auto;
-  max-width: 400px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-  

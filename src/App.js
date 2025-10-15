@@ -16,24 +16,33 @@ function App() {
     setAutenticado(false);
     setShowListado(false);
   };
+  
+  // Función para volver al Dashboard desde ListadoTemas
   const volverAlDashboard = () => {
     setShowListado(false);
+  };
+
+  const irAListado = () => {
+    setShowListado(true);
   };
 
   return (
     <div className="App">
       <Header contenido={headerContent} />
 
-      {!autenticado ? (
-        <Login onLogin={setAutenticado} />
-      ) : showListado ? (
-        <ListadoTemas volver={volverAlDashboard} />
-      ) : (
-        <Dashboard 
-          mostrarListado={() => setShowListado(true)} 
-          cerrarSesion={cerrarSesion}
-        />
-      )}
+      <main className="main-content">
+        {!autenticado ? (
+          <Login onLogin={setAutenticado} />
+        ) : showListado ? (
+          // Pasa la función para volver al Dashboard
+          <ListadoTemas volver={volverAlDashboard} />
+        ) : (
+          <Dashboard 
+            mostrarListado={irAListado} 
+            cerrarSesion={cerrarSesion}
+          />
+        )}
+      </main>
 
       <Footer contenido={footerContent} />
     </div>
