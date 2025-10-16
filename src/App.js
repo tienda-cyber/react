@@ -8,6 +8,7 @@ import Login from './components/Login';
 import ListadoTemas from './components/ListadoTemas';
 import DetalleTema from './components/DetalleTema';
 import datosTemas from './data'; // Renombrado para evitar conflicto
+import Dashboard from './components/Dashboard';
 
 // Definición de las posibles vistas (estados de la interfaz)
 const VISTAS = {
@@ -38,8 +39,7 @@ function App() {
             setIsAuthenticated(true);
             setVistaActual(VISTAS.DASHBOARD); // Mueve a la vista del Dashboard
         } else {
-            // Muestra error si las credenciales son incorrectas
-            alert('Credenciales incorrectas. Usa Usuario: admin y Contraseña: 1234'); 
+            console.error('Credenciales incorrectas. Usa Usuario: admin y Contraseña: 1234');
         }
     };
 
@@ -79,29 +79,16 @@ function App() {
         switch (vistaActual) {
             case VISTAS.DASHBOARD:
                 return (
-                    <div className="dashboard-container">
-                        <h2>Bienvenido al sistema</h2>
-                        <p>Has iniciado sesión correctamente.</p>
-                        <div className="dashboard-buttons">
-                            <button 
-                                className="btn-primary" 
-                                onClick={() => setVistaActual(VISTAS.LISTADO)}
-                            >
-                                Listado de Temas
-                            </button>
-                            <button 
-                                className="btn-danger ml-4" 
-                                onClick={handleLogout}
-                            >
-                                Cerrar sesión
-                            </button>
-                        </div>
-                    </div>
+                    <Dashboard 
+                        mostrarListado={() => setVistaActual(VISTAS.LISTADO)} 
+                        cerrarSesion={handleLogout} 
+                    />
                 );
 
             case VISTAS.LISTADO:
                 return (
                     <>
+                        {/* Botón para volver al dashboard */}
                         <div className="dashboard-buttons">
                             <button 
                                 className="btn-back" 
@@ -110,30 +97,34 @@ function App() {
                                 Volver al Dashboard
                             </button>
                         </div>
+                        {/* Componente que muestra el listado y maneja la búsqueda */}
                         <ListadoTemas 
-                            datos={datosTemas} // Pasa el array de temas al componente
+                            datos={datosTemas} 
                             onSeleccionarTema={handleSeleccionarTema} 
                         />
                     </>
                 );
 
             case VISTAS.DETALLE:
-                // El componente de detalle ahora recibe la función para volver
+                // Muestra el detalle del tema seleccionado
                 return <DetalleTema tema={temaSeleccionado} volver={handleVolver} />;
 
             default:
-                // En caso de que el estado se corrompa, volvemos al dashboard
+                // Si la vista es desconocida, vuelve al login por seguridad
                 return <Login onLogin={handleLogin} />;
         }
     };
 
     return (
         <div id="app-wrapper">
-            <Header />
-            <main className="flex-grow container mx-auto">
+            {/* Oculta Header y Footer en la vista de Login */}
+            { vistaActual !== VISTAS.LOGIN && <Header /> }
+            
+            <main className="main-content"> 
                 {renderContenidoPrincipal()}
             </main>
-            <Footer />
+            
+            { vistaActual !== VISTAS.LOGIN && <Footer /> }
         </div>
     );
 }

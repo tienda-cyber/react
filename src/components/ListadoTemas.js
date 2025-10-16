@@ -25,53 +25,59 @@ const getIconClass = (nombre) => {
 };
 
 const ListadoTemas = ({ datos, onSeleccionarTema }) => {
-    // Estado para la búsqueda
-    const [filtro, setFiltro] = useState('');
-
-    // Validamos que 'datos' sea un array antes de intentar filtrarlo
-    const temasFiltrados = Array.isArray(datos)
-        ? datos.filter(tema =>
-              // CORREGIDO: Usar tema.nombre en lugar de tema.titulo
-              tema.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
-              tema.descripcion.toLowerCase().includes(filtro.toLowerCase())
-          )
-        : []; // Si no es un array, usamos un array vacío
-
     return (
-        <div className="listado-container">
-            {/* Barra de Búsqueda */}
-            <div className="search-bar-container">
-                <input
-                    type="text"
-                    placeholder="Buscar temas..."
-                    value={filtro}
-                    onChange={(e) => setFiltro(e.target.value)}
-                    className="search-input"
-                />
-            </div>
-
-            {/* Grid de Temas */}
-            <div className="temas-grid">
-                {temasFiltrados.length > 0 ? (
-                    temasFiltrados.map((tema) => (
-                        <div 
-                            key={tema.id} 
-                            className="card tema-card" 
-                            onClick={() => onSeleccionarTema(tema)}
-                        >
-                            <div className="card-icon">
-                                {/* CORREGIDO: Usar tema.nombre para obtener el ícono */}
-                                <FontAwesomeIcon icon={getIconClass(tema.nombre)} />
-                            </div>
-                            {/* CORREGIDO: Usar tema.nombre en el título */}
-                            <h3 className="card-title">{tema.nombre}</h3>
-                            <p className="card-description">{tema.descripcion}</p>
-                            <button className="btn-secondary">Ver Detalle</button>
+        // Contenedor principal para la vista de listado
+        <div className="py-6">
+            <h2 className="text-4xl font-extrabold text-white mb-10 text-center">
+                Explora Nuestros Temas Educativos
+            </h2>
+            
+            {/* Contenedor de la cuadrícula, responsivo */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {datos.map(tema => (
+                    // Tarjeta individual del tema
+                    <div
+                        key={tema.id}
+                        className="bg-gray-800 rounded-xl shadow-2xl overflow-hidden cursor-pointer 
+                                   transition duration-300 transform hover:scale-[1.03] hover:shadow-indigo-500/50 
+                                   border border-indigo-700/50"
+                        onClick={() => onSeleccionarTema(tema)}
+                    >
+                        {/* Imagen del tema */}
+                        <div className="h-48 bg-gray-700 flex items-center justify-center">
+                            <img 
+                                src={tema.imagen} 
+                                alt={`Imagen de ${tema.nombre}`} 
+                                className="w-full h-full object-cover"
+                                // Fallback para la imagen en caso de error
+                                onError={(e) => { 
+                                    e.target.onerror = null; 
+                                    e.target.src = "https://placehold.co/800x400/374151/FFFFFF?text=No+Image"; 
+                                }}
+                            />
                         </div>
-                    ))
-                ) : (
-                    <p className="text-center w-full">No se encontraron temas.</p>
-                )}
+                        
+                        <div className="p-6">
+                            {/* Título */}
+                            <h3 className="text-2xl font-bold text-indigo-400 mb-2">
+                                {tema.nombre}
+                            </h3>
+                            {/* Descripción */}
+                            <p className="text-gray-400 text-sm h-12 overflow-hidden">
+                                {tema.descripcion}
+                            </p>
+                            
+                            {/* Botón de acción */}
+                            <button 
+                                className="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold 
+                                           py-2 rounded-lg transition duration-200 transform hover:scale-[1.01] 
+                                           shadow-md shadow-indigo-500/30"
+                            >
+                                Ver Detalle
+                            </button>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
