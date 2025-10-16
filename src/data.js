@@ -1,4 +1,5 @@
-const datosTemas = [ // <-- Cambiado de 'data' a 'datosTemas'
+// Archivo de datos que define los temas educativos
+const datosTemas = [
     {
         id: 1,
         nombre: "React",
@@ -17,12 +18,14 @@ function Saludo(props) {
 
 export default Saludo;
 `,
-        icono: 'react', // Icono de Font Awesome
-        imagen: "https://placehold.co/600x400/003d6d/FFFFFF?text=React+JS",
+        // La clave 'icono' no se usará directamente, pero la mantengo
+        icono: 'react', 
+        // Usaré 'imagen_url' para consistencia con el componente DetalleTema anterior
+        imagen_url: "https://placehold.co/800x200/003d6d/FFFFFF?text=REACT+JS", 
     },
     {
         id: 2,
-        nombre: "JavaScript",
+        nombre: "JavaScript Avanzado",
         descripcion: "Lenguaje de programación esencial para la web.",
         contenido_extendido: "JavaScript es un lenguaje de programación interpretado que, junto con HTML y CSS, es una de las tecnologías centrales de la World Wide Web. Permite implementar funciones complejas en páginas web y hacerlas interactivas.",
         codigo_ejemplo: `// Función para calcular el factorial de un número
@@ -35,12 +38,12 @@ function factorial(n) {
 
 console.log(factorial(5)); // Salida: 120
 `,
-        icono: 'js', // Icono de Font Awesome
-        imagen: "https://placehold.co/600x400/f0db4f/000000?text=JavaScript",
+        icono: 'js',
+        imagen_url: "https://placehold.co/800x200/f0db4f/000000?text=JAVASCRIPT",
     },
     {
         id: 3,
-        nombre: "CSS Avanzado",
+        nombre: "CSS ",
         descripcion: "Técnicas modernas de diseño y maquetación.",
         contenido_extendido: "CSS (Cascading Style Sheets) avanzado incluye el uso de Flexbox, Grid Layout y variables CSS (custom properties). Estas herramientas son cruciales para crear diseños responsivos y fáciles de mantener.",
         codigo_ejemplo: `/* Uso de Flexbox para centrar contenido */
@@ -60,8 +63,8 @@ console.log(factorial(5)); // Salida: 120
     background-color: var(--color-principal);
 }
 `,
-        icono: 'css3', // Icono de Font Awesome
-        imagen: "https://placehold.co/600x400/2965f1/FFFFFF?text=CSS+3",
+        icono: 'css',
+        imagen_url: "https://placehold.co/800x200/2965f1/FFFFFF?text=CSS",
     },
     {
         id: 4,
@@ -80,8 +83,8 @@ server.listen(3000, '127.0.0.1', () => {
     console.log('Servidor corriendo en http://127.0.0.1:3000/');
 });
 `,
-        icono: 'node-js', // Icono de Font Awesome
-        imagen: "https://placehold.co/600x400/3c873a/FFFFFF?text=Node+JS",
+        icono: 'node-js',
+        imagen_url: "https://placehold.co/800x200/3c873a/FFFFFF?text=NODE+JS",
     },
     {
         id: 5,
@@ -96,8 +99,8 @@ def saludar(nombre):
 mensaje = saludar("Mundo")
 print(mensaje)
 `,
-        icono: 'python', // Icono de Font Awesome
-        imagen: "https://placehold.co/600x400/3776ab/FFD43B?text=Python",
+        icono: 'python',
+        imagen_url: "https://placehold.co/800x200/3776ab/FFD43B?text=PYTHON",
     }
 ];
 

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // Importa íconos específicos (asegúrate de que estas librerías estén instaladas en tu proyecto)
 import { faReact, faJs, faCss3Alt, faNodeJs, faPython } from '@fortawesome/free-brands-svg-icons'; // Añadidos Node y Python
 import { faCode } from '@fortawesome/free-solid-svg-icons';
+import datosTemas from '../data'; // Asegúrate de que la ruta es correcta
 
 // Función auxiliar para obtener el ícono basado en el nombre del tema (CORREGIDO)
 const getIconClass = (nombre) => {
@@ -24,60 +25,70 @@ const getIconClass = (nombre) => {
     return faCode; // Ícono genérico por defecto
 };
 
-const ListadoTemas = ({ datos, onSeleccionarTema }) => {
+const ListadoTemas = ({ mostrarDetalle, cerrarSesion }) => {
+
+    const temas = datosTemas; 
+
     return (
-        // Contenedor principal para la vista de listado
-        <div className="py-6">
-            <h2 className="text-4xl font-extrabold text-white mb-10 text-center">
-                Explora Nuestros Temas Educativos
-            </h2>
-            
-            {/* Contenedor de la cuadrícula, responsivo */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {datos.map(tema => (
-                    // Tarjeta individual del tema
-                    <div
-                        key={tema.id}
-                        className="bg-gray-800 rounded-xl shadow-2xl overflow-hidden cursor-pointer 
-                                   transition duration-300 transform hover:scale-[1.03] hover:shadow-indigo-500/50 
-                                   border border-indigo-700/50"
-                        onClick={() => onSeleccionarTema(tema)}
+        <div className="min-h-screen bg-gray-900 p-4 sm:p-10 font-sans">
+            <div className="max-w-6xl mx-auto">
+
+                {/* Encabezado y Botón de Acción */}
+                <div className="flex justify-between items-center mb-10 border-b border-gray-700 pb-6">
+                    <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+                        <span className="text-indigo-400">Explora</span> Nuestros Temas
+                    </h1>
+                    <button
+                        onClick={cerrarSesion}
+                        className="px-6 py-3 bg-red-600 text-white font-semibold rounded-xl shadow-lg hover:bg-red-700 transition duration-300 transform hover:scale-105"
                     >
-                        {/* Imagen del tema */}
-                        <div className="h-48 bg-gray-700 flex items-center justify-center">
-                            <img 
-                                src={tema.imagen} 
-                                alt={`Imagen de ${tema.nombre}`} 
-                                className="w-full h-full object-cover"
-                                // Fallback para la imagen en caso de error
-                                onError={(e) => { 
-                                    e.target.onerror = null; 
-                                    e.target.src = "https://placehold.co/800x400/374151/FFFFFF?text=No+Image"; 
-                                }}
+                        Cerrar Sesión
+                    </button>
+                </div>
+                
+                {/* Rejilla de Temas (Responsive Grid) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {temas.map((tema) => (
+                        <div 
+                            key={tema.id}
+                            className="bg-gray-800 rounded-2xl overflow-hidden shadow-2xl transition duration-500 ease-in-out transform hover:scale-[1.02] hover:shadow-indigo-500/50 cursor-pointer border border-gray-700"
+                            onClick={() => mostrarDetalle(tema)}
+                        >
+                            {/* IMAGEN: Usando tema.imagen */}
+                            <img
+                                src={tema.imagen || "https://placehold.co/600x250/333333/FFFFFF?text=Contenido+Visual"}
+                                alt={`Imagen de ${tema.nombre}`}
+                                className="w-full h-40 object-cover"
                             />
-                        </div>
-                        
-                        <div className="p-6">
-                            {/* Título */}
-                            <h3 className="text-2xl font-bold text-indigo-400 mb-2">
-                                {tema.nombre}
-                            </h3>
-                            {/* Descripción */}
-                            <p className="text-gray-400 text-sm h-12 overflow-hidden">
-                                {tema.descripcion}
-                            </p>
                             
-                            {/* Botón de acción */}
-                            <button 
-                                className="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold 
-                                           py-2 rounded-lg transition duration-200 transform hover:scale-[1.01] 
-                                           shadow-md shadow-indigo-500/30"
-                            >
-                                Ver Detalle
-                            </button>
+                            <div className="p-6">
+                                {/* Nombre del Tema */}
+                                <h2 className="text-2xl font-bold mb-2 text-indigo-400">
+                                    {tema.nombre}
+                                </h2>
+                                
+                                {/* Descripción Corta */}
+                                <p className="text-gray-400 mb-4 text-sm h-12 overflow-hidden">
+                                    {tema.descripcion}
+                                </p>
+
+                                {/* Botón Ver Detalle */}
+                                <button
+                                    className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+                                    onClick={(e) => { e.stopPropagation(); mostrarDetalle(tema); }}
+                                >
+                                    Ver Detalle
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
+                
+            </div>
+            
+            {/* Pie de Página Sencillo */}
+            <div className="text-center mt-12 pt-6 border-t border-gray-800">
+                <p className="text-gray-500 text-sm">© 2025 Recursos Educativos. Todos los derechos reservados.</p>
             </div>
         </div>
     );

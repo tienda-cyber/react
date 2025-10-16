@@ -99,8 +99,8 @@ function App() {
                         </div>
                         {/* Componente que muestra el listado y maneja la búsqueda */}
                         <ListadoTemas 
-                            datos={datosTemas} 
-                            onSeleccionarTema={handleSeleccionarTema} 
+                            mostrarDetalle={handleSeleccionarTema}
+                            cerrarSesion={handleLogout} 
                         />
                     </>
                 );
